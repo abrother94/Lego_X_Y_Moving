@@ -19,8 +19,9 @@ X_Step=0
 Y_Step=0
 Z_Step=0
 Setting=False
-Rev=1
-Dbg=True
+Rev=2
+#Dbg=True
+Dbg=False
 
 def handle_client(client_socket):
     cmdstr = client_socket.recv(1024)
@@ -71,6 +72,10 @@ def handle_client(client_socket):
     elif r_cmd == "ZeroP":
       print("Set Zero Point")
       ZeroPoint = [0,0,0]
+      X_Step = 0
+      Y_Step = 0
+      Z_Step = 0
+      print("Set B Zone X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
     elif r_cmd == "ZoneA":
       print("Set A Zone X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
       ZoneA = [X_Step,Y_Step,0]
@@ -85,26 +90,26 @@ def handle_client(client_socket):
       if Y_Step < 0:
           print("Move Up...")
           if Dbg != True:
-              tank_drive.on_for_degrees(SpeedPercent(25*Rev), SpeedPercent(25*Rev),Y_Step)
+              tank_drive.on_for_degrees(SpeedPercent(25*Rev), SpeedPercent(25*Rev),abs(Y_Step))
           Y_Step += abs(Y_Step)
           print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
       else:
           print("Move Down...")
           if Dbg != True:
-              tank_drive.on_for_degrees(SpeedPercent(-25*Rev), SpeedPercent(-25*Rev),Y_Step)
+              tank_drive.on_for_degrees(SpeedPercent(-25*Rev), SpeedPercent(-25*Rev),abs(Y_Step))
           Y_Step -= abs(Y_Step)
           print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
 
       if X_Step < 0:
           print("Move Right...")
           if Dbg != True:
-             tank_drive.on_for_degrees(SpeedPercent(-25*Rev), SpeedPercent(25*Rev),X_Step)
+             tank_drive.on_for_degrees(SpeedPercent(-25*Rev), SpeedPercent(25*Rev),abs(X_Step))
           X_Step += abs(X_Step)
           print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
       else:
           print("Move Left...")
           if Dbg != True:
-              tank_drive.on_for_degrees(SpeedPercent(25*Rev), SpeedPercent(-25*Rev),X_Step)
+              tank_drive.on_for_degrees(SpeedPercent(25*Rev), SpeedPercent(-25*Rev),abs(X_Step))
           X_Step -= abs(X_Step)
           print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
     else:
