@@ -53,16 +53,20 @@ def handle_client(client_socket):
           tank_drive.on_for_degrees(SpeedPercent(-25*Rev), SpeedPercent(-25*Rev),MD)
       Y_Step -= MD
       print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
-    elif r_cmd == "Left":
-      print("Left")
+    #elif r_cmd == "Left":
+    elif r_cmd == "Right":
+      #print("Left")
+      print("Right")
       tank_drive=MoveTank(OUTPUT_A, OUTPUT_D)
       MD=Move_D*int(step)
       if Dbg != True:
           tank_drive.on_for_degrees(SpeedPercent(25*Rev), SpeedPercent(-25*Rev),MD)
       X_Step -= MD
       print(" X[%d] Y[%d] Z[%d]" % (X_Step, Y_Step, Z_Step))
-    elif r_cmd == "Right":
-      print("Right")
+    #elif r_cmd == "Right":
+    elif r_cmd == "Left":
+      #print("Right")
+      print("Left")
       tank_drive=MoveTank(OUTPUT_A, OUTPUT_D)
       MD=Move_D*int(step)
       if Dbg != True:
